@@ -1,0 +1,10 @@
+xml2json
+----------------------------------------
+Very simple xml2json module for erlang.
+
+CAUTION:
+The module ignores all the attributes in
+xml element. Just use it for simple
+purpose.
+
+
