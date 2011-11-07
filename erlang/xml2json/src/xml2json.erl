@@ -1,14 +1,16 @@
 -module(xml2json).
 
+%%------------------------------------------------------------
 %% API
+%%------------------------------------------------------------
 -export([xmlstring2json/1,
 	 xmlfile2json/1]).
 
-%% TEST
--export([test_animal/0,
-	 test_review_rss/0,
-	 test_add_empty/0,
-	 test_strange_el/0]).
+%%------------------------------------------------------------
+%% For testing
+%%------------------------------------------------------------
+-export([xmlelement2json/1]).
+
 
 -include_lib("xmerl/include/xmerl.hrl").
 
@@ -16,9 +18,9 @@
 -define(DQUOTE, "\"").
 
 
-%% ============================================================
-%% API
-%% ============================================================
+%%%============================================================
+%%%  API
+%%%============================================================
 xmlstring2json(Xml)->
     {Root, _Rest} = xmerl_scan:string(Xml),
     xml2json(Root).
@@ -28,26 +30,20 @@ xmlfile2json(FilePath)->
     xml2json(Root).
 
 
+%%%============================================================
+%%% Internal Functions
+%%%============================================================
 
-%% ============================================================
-%% Internal Functions
-%% ============================================================
-atom_to_json_key(Atom) when is_atom(Atom)->
-    [?DQUOTE, atom_to_binary(Atom, utf8), ?DQUOTE].
-
-
-store_child_to_dict(Name, Value, Dict)->
-    case dict:find(Name, Dict) of
-	{ok, List}->
-	    NewList = List ++ [Value],
-	    dict:store(Name, NewList, Dict);
-	_ ->
-	    dict:store(Name, [Value], Dict)
-    end.
-
+%%------------------------------------------------------------
+%% @doc
+%% Convert root node to json string
+%% @spec xml2json(Root::xmlElement())->
+%%       {ok, binary()} | exception
+%% @end
+%%------------------------------------------------------------
 xml2json(Root)->
     {K,V} = xmlelement2json(Root),
-    lists:flatten(["{", atom_to_json_key(K), ":", V, "}"]).
+    {ok, list_to_binary(["{", atom_to_json_key(K), ":", V, "}"])}.
 
 
 %%------------------------------------------------------------
@@ -58,7 +54,6 @@ xml2json(Root)->
 %% @end
 %%------------------------------------------------------------
 xmlelement2json(#xmlElement{name=Name,
-			    attributes=Attributes,
 			    content=Content})->
     ChildMap = lists:foldl(fun xmlelement_grouping_func/2,
 			   dict:new(),
@@ -80,10 +75,12 @@ xmlelement2json(#xmlText{value=ValueRaw})->
     end.
 
 
-%%
+%%------------------------------------------------------------
+%% @doc
 %% Grouping XML element to dictionary based storage
-%%
-xmlelement_grouping_func(#xmlText{value=Value}=El,Dict)->
+%% @end
+%%------------------------------------------------------------
+xmlelement_grouping_func(#xmlText{value=Value},Dict)->
     case dict:find(?TEXTNODE, Dict) of
 	{ok, _}->Dict;
 	_->
@@ -98,7 +95,8 @@ xmlelement_grouping_func(El,Dict)->
 
 
 
-%%
+%%------------------------------------------------------------
+%% @doc
 %% Remove text node if Dict holds
 %% several types of element.
 %%
@@ -109,23 +107,26 @@ xmlelement_grouping_func(El,Dict)->
 %% In upper case,
 %% I ignore TextNode, cause it has no
 %% valuable things
-%%
+%% @end
+%%------------------------------------------------------------
 erase_textnode_if_necessary(Dict)->
     case dict:size(Dict) of
 	1->
 	    Dict;
 	_->
 	    case dict:find(?TEXTNODE, Dict) of
-		{ok, Value}->
+		{ok, _Value}->
 		    dict:erase(?TEXTNODE, Dict);
 		_ -> Dict
 	    end
     end.
 
 
-%%
+%%------------------------------------------------------------
+%% @doc
 %% Add empty string if there is no child
-%%
+%% @end
+%%------------------------------------------------------------
 add_empty_string_if_no_child(ChildMap)->
     case dict:size(ChildMap) of
 	0->
@@ -140,12 +141,14 @@ add_empty_string_if_no_child(ChildMap)->
 %%       -> string()
 %% @end
 %%------------------------------------------------------------
+-ifdef(USE_ATTRIBUTE).
 attribute_value_to_json(Value) when is_integer(Value)->
     integer_to_list(Value);
 attribute_value_to_json(Value) when is_atom(Value)->
     atom_to_json_key(Value);
 attribute_value_to_json(Value)->
     [?DQUOTE, Value, ?DQUOTE].
+-endif.
 
 
 %%------------------------------------------------------------
@@ -157,6 +160,7 @@ attribute_value_to_json(Value)->
 %%
 %% @end
 %%------------------------------------------------------------
+-ifdef(USE_ATTRIBUTE).
 attributes_to_child_map(AttrList, Map)->
     Fun=fun (#xmlAttribute{name=Name, value=Value},
 	     Dict)->
@@ -166,11 +170,14 @@ attributes_to_child_map(AttrList, Map)->
     lists:foldl(Fun,
 		Map,
 		AttrList).
+-endif.
 
 
-%%
+%%------------------------------------------------------------
+%% @doc
 %% child2json_func
-%% 
+%% @end
+%%------------------------------------------------------------
 child2json_func({?TEXTNODE, TextList}, {List,_})->
     {[TextList|List], false};
 child2json_func({Name, List}, {OldList,_})->
@@ -185,9 +192,11 @@ child2json_func({Name, List}, {OldList,_})->
 	    {[Formatted|OldList], true}
     end.
 
-%%
+%%------------------------------------------------------------
+%% @doc
 %% Convert given child map to json strings
-%%
+%% @end
+%%------------------------------------------------------------
 childmap2json(Dict)->
     L = dict:to_list(Dict),
     {L1,JsonMapFormatUsed} = lists:foldl(fun child2json_func/2,
@@ -201,77 +210,27 @@ childmap2json(Dict)->
     end.
 
 
-%% ============================================================
-%% TEST
-%% ============================================================
-
--define(ANIMAL_XML_TEST_STRING,
-	"<animal kind=\"pet\"><dog>abc</dog><dog>bbc</dog><cat>tom</cat>
-<height>130</height>
-<a:entry>
- <a:updated>2011-10-11T13:15:01.533Z</a:updated>
- <a:title type=\"text\"></a:title>
- <a:id>
-   tag:catalog.zune.net,2011-11-04:/apps/47ae03f0-99d1-df11-9eae-00237de2db9e/reviews
- </a:id>
-<a:content type=\"html\">
-Seriously, no MANGO UPDATE!?!!??...where are the updates...this is terrible compared to the iPhone or Android app...why are you not updating app...PLEASE UPDATE
-</a:content>
-<a:author>
-<a:name>ant1906</a:name>
-</a:author>
-<userRating>2</userRating>
-</a:entry>
-
-<a:title type=\"text\">List Of Items</a:title></animal>").
-
-test_animal()->
-    {Root, _} = xmerl_scan:string(?ANIMAL_XML_TEST_STRING),
-    JSON = xml2json(Root),
-    io:fwrite("~s~n", [JSON]).
+atom_to_json_key(Atom) when is_atom(Atom)->
+    [?DQUOTE, atom_to_binary(Atom, utf8), ?DQUOTE].
 
 
-test_review_rss()->
-    {Node, Rest} = xmerl_scan:file("F:/prjs/github/erlang/src/xml2json_sample.xml"),
-    JSON = xml2json(Node),
-    io:fwrite("~s~n", [JSON]).
+store_child_to_dict(Name, Value, Dict)->
+    case dict:find(Name, Dict) of
+	{ok, List}->
+	    NewList = List ++ [Value],
+	    dict:store(Name, NewList, Dict);
+	_ ->
+	    dict:store(Name, [Value], Dict)
+    end.
 
 
-test_add_empty()->
-    EmptyNode = {xmlElement,
-		 'a:title',
-		 'a:title',
-		 {"a","title"},
-		 {xmlNamespace,[],[]},
-		 [{'a:entry',7},{animaal,1}],
-		 4,
-		 [{xmlAttribute,type,[],[],[],[],1,[],"text",false}],
-		 [],[],undefined,undeclared},
-    xmlelement2json(EmptyNode).
 
-test_strange_el()->
-    XmlElement = {xmlElement,'a:author','a:author',
-		  {"a","author"},
-		  {xmlNamespace,[],[]},
-		  [{'a:entry',7},{animal,1}],
-		  10,[],
-		  [{xmlText,
-		    [{'a:author',10},{'a:entry',7},{animal,1}],
-		    1,[],"\n",text},
-		   {xmlElement,'a:name','a:name',
-		    {"a","name"},
-		    {xmlNamespace,[],[]},
-		    [{'a:author',10},{'a:entry',7},{animal,1}],
-		    2,[],
-		    [{xmlText,
-		      [{'a:name',2},
-		       {'a:author',10},
-		       {'a:entry',7},
-		       {animal,1}],
-		      1,[],"ant1906",text}],
-		    [],undefined,undeclared},
-		   {xmlText,
-		    [{'a:author',10},{'a:entry',7},{animal,1}],
-		    3,[],"\n",text}],
-		  [],undefined,undeclared},
-    xmlelement2json(XmlElement).
+
+
+
+
+
+
+
+
+

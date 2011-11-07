@@ -1,0 +1,4 @@
+*.beam
+*.*~
+/erlang/src/xml2json.beam
+/erlang/src/xml2json.erl~
