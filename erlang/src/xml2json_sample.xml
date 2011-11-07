@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<a:feed 
+    xmlns:a="http://www.w3.org/2005/Atom" 
+    xmlns:os="http://a9.com/-/spec/opensearch/1.1/" 
+    xmlns="http://schemas.zune.net/catalog/apps/2008/02">
+  <a:link 
+      rel="prev" 
+      type="application/atom+xml" 
+      href="/v3.2/en-US/apps/47ae03f0-99d1-df11-9eae-00237de2db9e/reviews?beforeMarker=AAAAAQAAn3sAO1QpGa6Lq9X61kyEhvrrnTdQnA%3d%3d&amp;chunkSize=10&amp;orderBy=Default" />
+  <a:link rel="next" type="application/atom+xml" href="/v3.2/en-US/apps/47ae03f0-99d1-df11-9eae-00237de2db9e/reviews?afterMarker=AAAAAQAAn3cBN3cASvFnpJJAPkS3WGh1jMoIfQ%3d%3d&amp;chunkSize=10&amp;orderBy=Default" />
+  <a:link rel="self" type="application/atom+xml" href="/v3.2/en-US/apps/47ae03f0-99d1-df11-9eae-00237de2db9e/reviews?afterMarker=AAAAAQAAn3sA%2f%2fvHCR36jsMVKUKedAbaDNC12A%3d%3d&amp;chunkSize=10&amp;orderBy=Default" />
+  <a:updated>2011-11-04T19:02:17.5713304Z</a:updated>
+  <a:title type="text">List Of Items</a:title>
+  <a:id>tag:catalog.zune.net,2011-11-04:/apps/47ae03f0-99d1-df11-9eae-00237de2db9e/reviews</a:id>
+  <a:entry>
+    <a:updated>2011-10-13T03:36:00.563Z</a:updated>
+    <a:title type="text">
+    </a:title>
+    <a:id>tag:catalog.zune.net,2011-11-04:/apps/47ae03f0-99d1-df11-9eae-00237de2db9e/reviews</a:id>
+    <a:content type="html">Its not very good at figuring out where I am in order to find what's nearby. I have to locate myself via maps for this to sometimes work. Also, no way to give review through app or upload photos</a:content>
+    <a:author>
+      <a:name>violetstar222</a:name>
+    </a:author>
+    <userRating>4</userRating>
+  </a:entry>
+  <a:entry>
+    <a:updated>2011-10-11T13:15:01.533Z</a:updated>
+    <a:title type="text">
+    </a:title>
+    <a:id>tag:catalog.zune.net,2011-11-04:/apps/47ae03f0-99d1-df11-9eae-00237de2db9e/reviews</a:id>
+    <a:content type="html">Seriously, no MANGO UPDATE!?!!??...where are the updates...this is terrible compared to the iPhone or Android app...why are you not updating app...PLEASE UPDATE</a:content>
+    <a:author>
+      <a:name>ant1906</a:name>
+    </a:author>
+    <userRating>2</userRating>
+  </a:entry>
+  <a:entry>
+    <a:updated>2011-10-10T16:03:00.69Z</a:updated>
+    <a:title type="text">Minimal App</a:title>
+    <a:id>tag:catalog.zune.net,2011-11-04:/apps/47ae03f0-99d1-df11-9eae-00237de2db9e/reviews</a:id>
+    <a:content type="html">THis app is a mere shell of one.  The Yelp app on other platforms is far more robust and versitile.  WP7 version doesn't have features like, checkin-in, log-in, etc.  It is quite frankly no better than the web version.  Has not been updated in over a year.  This app needs to be overhauled and brought up to par.</a:content>
+    <a:author>
+      <a:name>mclim9</a:name>
+    </a:author>
+    <userRating>2</userRating>
+  </a:entry>
+  <a:entry>
+    <a:updated>2011-10-10T13:36:00.19Z</a:updated>
+    <a:title type="text">
+    </a:title>
+    <a:id>tag:catalog.zune.net,2011-11-04:/apps/47ae03f0-99d1-df11-9eae-00237de2db9e/reviews</a:id>
+    <a:content type="html">Won't find anything</a:content>
+    <a:author>
+      <a:name>Player821482893</a:name>
+    </a:author>
+    <userRating>2</userRating>
+  </a:entry>
+  <a:entry>
+    <a:updated>2011-10-10T02:56:00.56Z</a:updated>
+    <a:title type="text">
+    </a:title>
+    <a:id>tag:catalog.zune.net,2011-11-04:/apps/47ae03f0-99d1-df11-9eae-00237de2db9e/reviews</a:id>
+    <a:content type="html">Great app</a:content>
+    <a:author>
+      <a:name>speculum fight</a:name>
+    </a:author>
+    <userRating>10</userRating>
+  </a:entry>
+  <a:entry>
+    <a:updated>2011-10-10T01:10:00.78Z</a:updated>
+    <a:title type="text">
+    </a:title>
+    <a:id>tag:catalog.zune.net,2011-11-04:/apps/47ae03f0-99d1-df11-9eae-00237de2db9e/reviews</a:id>
+    <a:content type="html">Its been bad before the mango update. I recommend 4th and mayor aka foursquare. This yelp app just fails so much </a:content>
+    <a:author>
+      <a:name>Pockit Change</a:name>
+    </a:author>
+    <userRating>2</userRating>
+  </a:entry>
+  <a:entry>
+    <a:updated>2011-10-09T23:56:00.29Z</a:updated>
+    <a:title type="text">
+    </a:title>
+    <a:id>tag:catalog.zune.net,2011-11-04:/apps/47ae03f0-99d1-df11-9eae-00237de2db9e/reviews</a:id>
+    <a:content type="html">Stopped working on mango please update</a:content>
+    <a:author>
+      <a:name>RoRowTheBOAT</a:name>
+    </a:author>
+    <userRating>2</userRating>
+  </a:entry>
+  <a:entry>
+    <a:updated>2011-10-09T22:21:00.62Z</a:updated>
+    <a:title type="text">
+    </a:title>
+    <a:id>tag:catalog.zune.net,2011-11-04:/apps/47ae03f0-99d1-df11-9eae-00237de2db9e/reviews</a:id>
+    <a:content type="html">Used to be a decent app, but it seems that Mango might have broken it somehow. It no longer can find my location and as such returns no results.</a:content>
+    <a:author>
+      <a:name>netghst1</a:name>
+    </a:author>
+    <userRating>2</userRating>
+  </a:entry>
+  <a:entry>
+    <a:updated>2011-10-09T19:34:00.873Z</a:updated>
+    <a:title type="text">
+    </a:title>
+    <a:id>tag:catalog.zune.net,2011-11-04:/apps/47ae03f0-99d1-df11-9eae-00237de2db9e/reviews</a:id>
+    <a:content type="html">Will not find anything on HTC 7</a:content>
+    <a:author>
+      <a:name>Player777303354</a:name>
+    </a:author>
+    <userRating>0</userRating>
+  </a:entry>
+  <a:entry>
+    <a:updated>2011-10-09T18:54:00.533Z</a:updated>
+    <a:title type="text">
+    </a:title>
+    <a:id>tag:catalog.zune.net,2011-11-04:/apps/47ae03f0-99d1-df11-9eae-00237de2db9e/reviews</a:id>
+    <a:content type="html">Comon! At least fix the bugs in your app. Looks bad on your company.</a:content>
+<a:author>
+<a:name>ananttrivedi</a:name>
+</a:author>
+<userRating>2</userRating>
+</a:entry>
+</a:feed>
