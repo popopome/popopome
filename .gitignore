@@ -2,3 +2,8 @@
 *.*~
 /erlang/src/xml2json.beam
 /erlang/src/xml2json.erl~
+Debug/
+Release/
+*.suo
+*.user
+obj/
